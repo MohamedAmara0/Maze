@@ -62,12 +62,13 @@ public class MainMenu {
 				text += "2. Player must reach the red endpoint to win.\r\n";
 				text += "3. While going through the maze, get coins \r\n";
 				text += "4. Achieve a higher score.\r\n";
-				text += "5. Move teh character by using the 'W-A-S-D' keyboard or \r\n";
+				text += "5. Move the character by using the 'W-A-S-D' keyboard or \r\n";
 				text += "by using the standard arrow keys to move.\r\n";
-				text += "6. Mouse clicks can also be used on the on=screen \r\ndirections buttons as well.";
+				text += "6. Mouse clicks can also be used on the on-screen \r\ndirections buttons as well.";
 				
 				JTextPane textPane = new JTextPane();
 				textPane.setText(text);
+				textPane.setEditable(false);
 				
 				frame.getContentPane().add(textPane, BorderLayout.CENTER);
 				frame.setLocationRelativeTo(null);
