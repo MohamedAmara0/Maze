@@ -1,5 +1,3 @@
-package code;
-
 /**
 * @author Mohamed Amara + Raed Ahmed + Olivia Jasinskas + Miles Carter
 * Runs the Maze game.
