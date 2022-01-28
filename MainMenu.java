@@ -1,80 +1,152 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
-* A class that creates the primary menu user interface, which allows
-* choosing between seeing instructions or playing the game.
+*	A class that covers the game board's features, such as the maze 
+*	GUI and movement buttons.
 */
-public class MainMenu {
+public class MazeFrame {
 	
-	JFrame frame = new JFrame("Maze");
+	static JFrame frame = new JFrame("Maze");
+	JPanel p = new JPanel(new BorderLayout());
+	JPanel p2 = new JPanel(new BorderLayout());
 	
 	/**
-	 *  Constructor for the Main Menu that adds the title along with
-	 *  the two buttons for playing the game and viewing the instructions
-	 *  
-	 *  One anonymous classes is used to listen for a play game click, 
-	 *  in which it will call up the difficulty class.
-	 *  
-	 *  The second anonymous class listens for a click on the instructions,
-	 *  in which it would display the appropriate instructions screen.
+	 * Constructs the maze frame with a board and a player, as well
+	 * all of the movement button listeners.
+	 * @param level	The size of the Frame
 	 */
-	public MainMenu(){
-		//box layout to allow for a simple two box interface
-		BoxLayout boxLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS); 
+	public MazeFrame(int level){		
 		
-		//make two buttons, one called "Play" and the other called "Instructions" and set appropriate fonts
-		Button play = new Button("Play");
-		play.setFont(new Font("Verdana", Font.BOLD, 32));
+		//create a board and player according to level, the level chosen on Difficulty()
+		final Board test = new Board(level, level, level);
+		final Player player = new Player(test);
 		
-		Button instruction = new Button("Instructions");
-		instruction.setFont(new Font("Verdana", Font.BOLD, 32));
+		//add the panels to the frame
+		p.add(test, BorderLayout.CENTER);
+		p.setFocusable(true);
+		frame.add(p, BorderLayout.CENTER);				
+		frame.add(p2, BorderLayout.SOUTH);	
 		
-		//add the buttons to the frame
-		frame.add(play); 
-		frame.add(instruction);
-
-		//tune the frame to an appropiate setting
-		frame.setLayout(boxLayout);
-		frame.setSize(500,500);
+		
+		//create the on screen buttons using navigational directions as variable names to 
+		//avoid overlapping names from other classes
+		
+		/* use the same formatting for all the movement buttons -- create the button with the movement as the name,
+		 * tune it appropriately, and create an action listener for it that will call its movement from player
+		 * @author Olivia
+		 */
+		JButton south = new JButton("Down");
+		south.setFocusable(false);
+		p2.add(south, BorderLayout.SOUTH);			
+		south.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {	
+				player.down(test);
+			}
+		});
+		
+		JButton north = new JButton("Up");
+		north.setFocusable(false);
+		p2.add(north, BorderLayout.NORTH);
+		north.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {	
+				player.up(test);
+			}
+		});
+		
+		JButton east = new JButton("Right");
+		east.setFocusable(false);
+		p2.add(east, BorderLayout.EAST);
+		east.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {	
+				player.right(test);
+			}
+		});		
+		
+		
+		JButton west = new JButton("Left");
+		west.setFocusable(false);
+		p2.add(west, BorderLayout.WEST);
+		west.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {	
+				player.left(test);
+			}
+		});	
+		
+		/*this button, newGame, allows the user to set up a new game by calling MainMenu.java, like MazeGUI.java
+		 * Miles, Raed
+		 */
+		JButton newGame = new JButton("New Game");
+		newGame.setFocusable(false);
+		p2.add(newGame, BorderLayout.CENTER);
+		newGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {	
+				frame.dispose();
+				new MainMenu();
+			}
+		});	
+			
+		//allow 'WASD' keys to be recognized as movement keys
+		// Olivia, Mohamed
+		p.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {				
+				int keyCode = e.getKeyCode();
+				if(e.getKeyChar() == 'a' || keyCode == KeyEvent.VK_LEFT) player.left(test);
+				if(e.getKeyChar() == 'd' || keyCode == KeyEvent.VK_RIGHT) player.right(test);
+				if(e.getKeyChar() == 'w' || keyCode == KeyEvent.VK_UP) player.up(test);
+				if(e.getKeyChar() == 's' || keyCode == KeyEvent.VK_DOWN) player.down(test);
+			}
+		});	
+		
+		//tune the frame appropriately
+		frame.setSize(500, 500);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.setVisible(true);		
-		
-		//if play is clicked, dispose of the current frame and call Difficulty
-		play.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {	
-				frame.dispose();
-				new Difficulty();
-			}
-		});
-		
-		//if instruction is clicked, make a new frame with all the instructions written in them.
-		instruction.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {	
-				JFrame frame = new JFrame("Instructions");
-				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-				
-				String text = "1. The blue character is the player.\r\n";
-				text += "2. Player must reach the red endpoint to win.\r\n";
-				text += "3. While going through the maze, get coins \r\n";
-				text += "4. Achieve a higher score.\r\n";
-				text += "5. Move the character by using the 'W-A-S-D' keyboard or \r\n";
-				text += "by using the standard arrow keys to move.\r\n";
-				text += "6. Mouse clicks can also be used on the on-screen \r\ndirections buttons as well.";
-				
-				JTextPane textPane = new JTextPane();
-				textPane.setText(text);
-				textPane.setEditable(false);
-				
-				frame.getContentPane().add(textPane, BorderLayout.CENTER);
-				frame.setLocationRelativeTo(null);
-				frame.pack();
-				frame.setVisible(true);
-			}
-		});
+		frame.setBackground(Color.green);
+		frame.setVisible(true);
 	}
+
+	/**
+	 * The constructor for the labyrinth frame that shows the winning frame.
+	 * @param level The size of the Frame
+	 * @param money The total number of coins a player has gathered.
+	 * @author Miles, Mohamed
+	 */
+	public MazeFrame(int level, int money) {
+		
+      //dispose of the current frame and make a new one
+      frame.dispose();        
+      JFrame newFrame = new JFrame();
+      
+      //create a text that congratulates the winner and shows the number of coins they achieved appropriately -- Miles
+      JTextPane textPane = new JTextPane();
+      textPane.setText("\r\n \r\n \r\n \r\nCongratulations!\r\nYou got " + money + " coin(s)!");
+      textPane.setFont(new Font("Verdana", Font.BOLD, 32));
+      textPane.setEditable(false);
+      
+      //Mohamed -- Centered the JTextPane using code from StackOverFlow
+      //link: https://stackoverflow.com/questions/3213045/centering-text-in-a-jtextarea-or-jtextpane-horizontal-text-alignment
+      StyledDocument doc = textPane.getStyledDocument();
+      SimpleAttributeSet center = new SimpleAttributeSet();
+      StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+      doc.setParagraphAttributes(0, doc.getLength(), center, false);
+      
+      //tune the new frame appropriately
+      newFrame.setBackground(Color.green);
+      newFrame.add(textPane, BorderLayout.CENTER);
+      newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      newFrame.setSize(500,500);
+      newFrame.setLocationRelativeTo(null);
+      newFrame.setVisible(true);
+  }
 }
