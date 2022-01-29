@@ -384,7 +384,7 @@ public class Board extends JPanel {
 			
 			//else if random is equal to 3 and the north cardinal is a free space
 			else if((random == 3) && (direction[3] == 'u')) { //North
-				//and if the cel lto the left is not an exterior wall
+				//and if the cell to the left is not an exterior wall
 				if (get(cC.getX() - 1, cC.getY()) != '#') {
 					//set said cell to 'v' and have the current cell now be one cell to the left and push the new current cell to the first index
 					set(cC.getX() - 1, cC.getY(), 'v');
