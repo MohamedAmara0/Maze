@@ -7,7 +7,7 @@ import javax.swing.*;
 * @author Mohamed, Olivia, Miles, Raed
 */
 @SuppressWarnings("serial")
-public class Player extends JPanel implements ActionListener{
+public class Player extends JPanel {
 	
 	//instance variables
 	private int coins = 0;
@@ -55,7 +55,7 @@ public class Player extends JPanel implements ActionListener{
 	 * Allows the player to advance left while examining
 	 * whether or not their next move will land on a win
 	 * cell or a coin cell.
-	 * @param board The board the player will move on.
+	 * @param board The player's playing board.
 	 * @author Mohamed, Raed, Olivia
 	 */
 	public void left(Board board){
@@ -82,7 +82,7 @@ public class Player extends JPanel implements ActionListener{
 	 * Allows the player to move right while checking
 	 * to see if his or her next move will land on a
 	 * win or coin cell.
-	 * @param board The board the player will move on.
+	 * @param board The player's playing board.
 	 * @author Mohamed, Raed, Olivia
 	 */
 	public void right(Board board) {
@@ -109,7 +109,7 @@ public class Player extends JPanel implements ActionListener{
 	 * Allows the player to advance by examining whether 
 	 * their next move will move up to a win cell or a 
 	 * coin cell.
-	 * @param board The board the player will move on.
+	 * @param board The player's playing board.
 	 * @author Mohamed, Raed, Olivia
 	 */
 	public void up(Board board) {
@@ -135,7 +135,7 @@ public class Player extends JPanel implements ActionListener{
 	/**
 	 * Allows the player to proceed down the board while checking to see
 	 * if their next move will land on a win cell or a coin cell.
-	 * @param board The board the player will move on.
+	 * @param board The player's playing board.
 	 * @author Mohamed, Raed, Olivia
 	 */
 	public void down(Board board) {
