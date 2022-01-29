@@ -18,13 +18,14 @@ public class Difficulty {
 	 * by the function for the difficulty class. This class adds three 
 	 * anonymous classes that, in essence, listen for mouse clicks
 	 * on Easy, Medium, or Hard difficulty levels.
+	 * @author Mohamed, Raed
 	 */
 	public Difficulty(){
 		//make a frame with a box layout appropriate for the choosing of levels
 		final JFrame frame = new JFrame("Menu");	
 		BoxLayout boxLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS); 
 		
-		//set up the buttons (easy, medium, hard) appropriately and add them to the frame
+		//set up the buttons (easy, medium, hard) appropriately and add them to the frame -- Mohamed
 		Button easy = new Button("Easy");
 		easy.setFont(new Font("Verdana", Font.BOLD, 32));
 		
@@ -47,7 +48,7 @@ public class Difficulty {
 		frame.setVisible(true);		
 		
 		//create action listeners for the easy, medium and hard that dispose
-		//of the current frame and call the MazeFrame with appropriate parameters
+		//of the current frame and call the MazeFrame with appropriate parameters -- Raed
 		
 		// EASY difficulty Action Listener
 		easy.addActionListener(new ActionListener() {
