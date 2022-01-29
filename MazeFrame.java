@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
 *	A class that covers the game board's features, such as the maze 
@@ -38,8 +41,10 @@ public class MazeFrame {
 		//create the on screen buttons using navigational directions as variable names to 
 		//avoid overlapping names from other classes
 		
-		//use the same formatting for all the movement buttons -- create the button with the movement as the name,
-		//tune it appropriately, and create an action listener for it that will call its movement from player
+		/* use the same formatting for all the movement buttons -- create the button with the movement as the name,
+		 * tune it appropriately, and create an action listener for it that will call its movement from player
+		 * @author Olivia
+		 */
 		JButton south = new JButton("Down");
 		south.setFocusable(false);
 		p2.add(south, BorderLayout.SOUTH);			
@@ -77,7 +82,9 @@ public class MazeFrame {
 			}
 		});	
 		
-		//this button, newGame, allows the user to set up a new game by calling MainMenu.java, like MazeGUI.java
+		/*this button, newGame, allows the user to set up a new game by calling MainMenu.java, like MazeGUI.java
+		 * Miles, Raed
+		 */
 		JButton newGame = new JButton("New Game");
 		newGame.setFocusable(false);
 		p2.add(newGame, BorderLayout.CENTER);
@@ -89,6 +96,7 @@ public class MazeFrame {
 		});	
 			
 		//allow 'WASD' keys to be recognized as movement keys
+		// Olivia, Mohamed
 		p.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {				
 				int keyCode = e.getKeyCode();
@@ -112,6 +120,7 @@ public class MazeFrame {
 	 * The constructor for the labyrinth frame that shows the winning frame.
 	 * @param level The size of the Frame
 	 * @param money The total number of coins a player has gathered.
+	 * @author Miles, Mohamed
 	 */
 	public MazeFrame(int level, int money) {
 		
@@ -119,13 +128,22 @@ public class MazeFrame {
       frame.dispose();        
       JFrame newFrame = new JFrame();
       
-      //create a text that congratulates the winner and shows the number of coins they achieved appropriately
-      JLabel textLabel = new JLabel("<html>Congratulations!<br>You got " + money + " coin(s)!</html>", JLabel.CENTER);
-      textLabel.setFont(new Font("Verdana", Font.BOLD, 32));
+      //create a text that congratulates the winner and shows the number of coins they achieved appropriately -- Miles
+      JTextPane textPane = new JTextPane();
+      textPane.setText("\r\n \r\n \r\n \r\nCongratulations!\r\nYou got " + money + " coin(s)!");
+      textPane.setFont(new Font("Verdana", Font.BOLD, 32));
+      textPane.setEditable(false);
+      
+      //Mohamed -- Centered the JTextPane using code from StackOverFlow
+      //link: https://stackoverflow.com/questions/3213045/centering-text-in-a-jtextarea-or-jtextpane-horizontal-text-alignment
+      StyledDocument doc = textPane.getStyledDocument();
+      SimpleAttributeSet center = new SimpleAttributeSet();
+      StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+      doc.setParagraphAttributes(0, doc.getLength(), center, false);
       
       //tune the new frame appropriately
       newFrame.setBackground(Color.green);
-      newFrame.add(textLabel, BorderLayout.CENTER);
+      newFrame.add(textPane, BorderLayout.CENTER);
       newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       newFrame.setSize(500,500);
       newFrame.setLocationRelativeTo(null);
