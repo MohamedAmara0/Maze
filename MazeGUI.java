@@ -1,6 +1,6 @@
 /**
 * @author Mohamed Amara + Raed Ahmed + Olivia Jasinskas + Miles Carter
-* Runs the Maze game.
+* Runs the Maze game by calling the MainMenu frame.
 */
 
 public class MazeGUI {
