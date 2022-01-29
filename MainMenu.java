@@ -1,5 +1,3 @@
-package code;
-
 import java.awt.event.ActionListener;
 import java.awt.*;
 import java.awt.event.*;
