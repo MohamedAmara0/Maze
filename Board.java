@@ -22,7 +22,7 @@ public class Board extends JPanel {
 	 * '=' for the inside walls, and 'u' for freespace.
 	 * @param x the size of the board in the x direction
 	 * @param y the size of the board in the y direction
-	 * @author Mohamed
+	 * @author Mohamed, Olivia
 	 */
 	public Board(int x, int y, int obj) {
 		//set values for all variables
@@ -112,7 +112,7 @@ public class Board extends JPanel {
 		
 		//remember '#' = external wall, '=' = internal wall, '8' = end point, 'X' = player and '+' = coin
 		//loop through the 2D array enough to fill up according the level selected (size)
-		//pseudo code by Mohamed and the if logic implemented by all
+		//pseudo code by Mohamed and the if logic implemented by all (each person had at least one segment of the if logic
 		for(int i = 0; i < size; i++) {
 			for(int k = 0; k < size; k++) {
 				//if the item is an external wall, set the color to black and make a square at the right position
