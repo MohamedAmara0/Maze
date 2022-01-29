@@ -22,8 +22,9 @@ public class Board extends JPanel {
 	 * '=' for the inside walls, and 'u' for freespace.
 	 * @param x the size of the board in the x direction
 	 * @param y the size of the board in the y direction
+	 * @author Mohamed
 	 */
-	public Board(int x, int y, int obj){
+	public Board(int x, int y, int obj) {
 		//set values for all variables
 		unVisited = (x * x);
 		y *= 2; 
@@ -42,16 +43,17 @@ public class Board extends JPanel {
 
 	/**
 	 * The makeBoard() resets the board	
+	 * @author Raed, Miles, Olivia, Mohamed
 	 */
 	public void makeBoard(){
-		//make the entire board freespace
+		//make the entire board freespace -- Raed
 		for (int i = 0; i < size; i++) {
 			for (int k = 0; k < size; k++) {
 				board[i][k] = 'u';
 			}
 		}
 		
-		//checker board of inner walls every other row as well as rows of complete inner walls
+		//checker board of inner walls every other row as well as rows of complete inner walls -- Miles
 		for (int i = 0; i < size; i+=2) {
 			for (int k=0; k < size; k++) {
 				board[i][k] = '=';
@@ -59,7 +61,7 @@ public class Board extends JPanel {
 			}
 		}
 		
-		//exterior walls all around the perimeter
+		//exterior walls all around the perimeter -- Olivia
 		for (int i = 0; i < size; i++) {
 			board[i][0] = '#';
 			board[0][i] = '#';
@@ -101,15 +103,17 @@ public class Board extends JPanel {
 	 * Modification to the paint technique so that the game board 
 	 * is correctly painted on the canvas in relation to the maze's 
 	 * 2D array, scaled appropriately.
+	 * @author Raed, Miles, Olivia, Mohamed
 	 */
-	public void paint(Graphics g){
+	public void paint(Graphics g) {
 		//paint the console and scale the frame according the the pixel width and the scale (level) relation
 		super.paint(g);
-		int n = 500/(scale+10);
+		int n = 500/(scale + 10);
 		
 		//remember '#' = external wall, '=' = internal wall, '8' = end point, 'X' = player and '+' = coin
 		//loop through the 2D array enough to fill up according the level selected (size)
-		for(int i = 0; i < size; i++){
+		//pseudo code by Mohamed and the if logic implemented by all
+		for(int i = 0; i < size; i++) {
 			for(int k = 0; k < size; k++) {
 				//if the item is an external wall, set the color to black and make a square at the right position
 				if((board[i][k] == '#')) {
@@ -145,6 +149,7 @@ public class Board extends JPanel {
 	 * @param x X coordinate.
 	 * @param y Y coordinate.
 	 * @return the x and y coordinates' value
+	 * @author Raed
 	 */
 	public char get(int x, int y) {
 		//return the element of the index
@@ -156,6 +161,7 @@ public class Board extends JPanel {
 	 * @param x X coordinate.
 	 * @param y Y coordinate.
 	 * @param value The value to replace the existing character.
+	 * @author Raed
 	 */
 	public void set(int x, int y, char value) {
 		//set the element of the index chosen to value
@@ -165,20 +171,21 @@ public class Board extends JPanel {
 	
 	/** 
 	 * A method that prints the board in text base format (testing purposes).
+	 * @author Raed
 	 */
 	public void print(){
 		//loop through the 2D array and print each element in neat format
 		for (int i = 0; i < size; i++)
 			for (int k=0; k < size; k++)
-				System.out.print(board[i][k] + " ");
+				System.out.print(board[i][k]);
 			System.out.println();
 	}
 	
 	/**
 	 * A function that adds a certain number of items to 
 	 * various points on the maze.
-	 * @param amount The total number of objects to be 
-	 * placed on the board.
+	 * @param amount The total number of objects to be placed on the board.
+	 * @author Mohamed
 	 */
 	public void addObject(int num) {
 		//declare and initialize location to a Random object
@@ -217,6 +224,7 @@ public class Board extends JPanel {
 	 * A position structure whose sole purpose is to keep track 
 	 * of the position's x and y coordinates. This is a variable 
 	 * that is used in generate.
+	 * @author Mohamed
 	 */
 	public class Position {
 		//instance variables
@@ -262,6 +270,7 @@ public class Board extends JPanel {
 	 * the current Cell variable.
 	 * @param cC currentCell, which is a position, should be passed in.
 	 * @return cardinal locations that have been updated
+	 * @author Mohamed
 	 */
 	public char[] updateDirection(Position cC){
 		//set the cardinal values to 0
@@ -296,6 +305,7 @@ public class Board extends JPanel {
 	 * labyrinth on the game board. Wikipedia pseudocode was utilised.
 	 * @param posX The x coordinates of the game board.
 	 * @param posY The y coordinates of the game board.
+	 * @author Mohamed
 	 */
 	public void generate(int posX, int posY) {
 		//the current cell is an object of the class Position equal to the position of the the parameters
@@ -399,7 +409,7 @@ public class Board extends JPanel {
 			}
 		}
 		//set the current cell to '8' to have it be the red square (end point) and set the top left (not exterior) cell to be the player (blue square)
-		set(cC.getX(),cC.getY(),'8');
-		set(1,1,'X');
+		set(cC.getX(), cC.getY(), '8');
+		set(1, 1, 'X');
 	}
 }
