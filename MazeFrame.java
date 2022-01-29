@@ -16,13 +16,14 @@ import javax.swing.text.StyledDocument;
 */
 public class MazeFrame {
 	
-	static JFrame frame = new JFrame("Maze");
+	private static JFrame frame = new JFrame("Maze");
+	
 	JPanel p = new JPanel(new BorderLayout());
-	JPanel p2 = new JPanel(new BorderLayout());
+	JPanel panel2 = new JPanel(new BorderLayout());
 	
 	/**
-	 * Constructs the maze frame with a board and a player, as well
-	 * all of the movement button listeners.
+	 * Constructor that makes a maze by connecting Board.java
+	 * and Player.java, as well all of the movement button listeners.
 	 * @param level	The size of the Frame
 	 */
 	public MazeFrame(int level){		
@@ -35,7 +36,7 @@ public class MazeFrame {
 		p.add(test, BorderLayout.CENTER);
 		p.setFocusable(true);
 		frame.add(p, BorderLayout.CENTER);				
-		frame.add(p2, BorderLayout.SOUTH);	
+		frame.add(panel2, BorderLayout.SOUTH);	
 		
 		
 		//create the on screen buttons using navigational directions as variable names to 
@@ -47,7 +48,7 @@ public class MazeFrame {
 		 */
 		JButton south = new JButton("Down");
 		south.setFocusable(false);
-		p2.add(south, BorderLayout.SOUTH);			
+		panel2.add(south, BorderLayout.SOUTH);			
 		south.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {	
 				player.down(test);
@@ -56,7 +57,7 @@ public class MazeFrame {
 		
 		JButton north = new JButton("Up");
 		north.setFocusable(false);
-		p2.add(north, BorderLayout.NORTH);
+		panel2.add(north, BorderLayout.NORTH);
 		north.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {	
 				player.up(test);
@@ -65,7 +66,7 @@ public class MazeFrame {
 		
 		JButton east = new JButton("Right");
 		east.setFocusable(false);
-		p2.add(east, BorderLayout.EAST);
+		panel2.add(east, BorderLayout.EAST);
 		east.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {	
 				player.right(test);
@@ -75,7 +76,7 @@ public class MazeFrame {
 		
 		JButton west = new JButton("Left");
 		west.setFocusable(false);
-		p2.add(west, BorderLayout.WEST);
+		panel2.add(west, BorderLayout.WEST);
 		west.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {	
 				player.left(test);
@@ -87,7 +88,7 @@ public class MazeFrame {
 		 */
 		JButton newGame = new JButton("New Game");
 		newGame.setFocusable(false);
-		p2.add(newGame, BorderLayout.CENTER);
+		panel2.add(newGame, BorderLayout.CENTER);
 		newGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {	
 				frame.dispose();
